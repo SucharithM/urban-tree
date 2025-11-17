@@ -43,7 +43,8 @@ export function HomePage() {
               Environmental Sensor Network
             </h1>
             <p className="text-xl md:text-2xl text-white/90 mb-6">
-              Advancing our understanding of forest ecosystems through real-time environmental monitoring
+              Advancing our understanding of forest ecosystems through real-time environmental
+              monitoring
             </p>
           </div>
         </div>
@@ -55,19 +56,20 @@ export function HomePage() {
           <div>
             <h2 className="text-3xl md:text-4xl text-foreground mb-6">About the Project</h2>
             <p className="text-muted-foreground mb-4">
-              Our research focuses on understanding the complex interactions between forest ecosystems 
-              and the atmosphere. Through a comprehensive network of environmental sensors, we collect 
-              continuous data on temperature, humidity, soil moisture, CO2 exchange, and other critical 
-              environmental parameters.
+              Our research focuses on understanding the complex interactions between forest
+              ecosystems and the atmosphere. Through a comprehensive network of environmental
+              sensors, we collect continuous data on temperature, humidity, soil moisture, CO2
+              exchange, and other critical environmental parameters.
             </p>
             <p className="text-muted-foreground mb-4">
-              This project combines cutting-edge sensor technology with ecological research to provide 
-              insights into how forests respond to changing environmental conditions. Our data helps 
-              inform conservation strategies and contributes to our understanding of the global carbon cycle.
+              This project combines cutting-edge sensor technology with ecological research to
+              provide insights into how forests respond to changing environmental conditions. Our
+              data helps inform conservation strategies and contributes to our understanding of the
+              global carbon cycle.
             </p>
             <p className="text-muted-foreground">
-              The sensor network operates year-round, capturing seasonal variations and long-term trends 
-              that are essential for climate science and forest ecology research.
+              The sensor network operates year-round, capturing seasonal variations and long-term
+              trends that are essential for climate science and forest ecology research.
             </p>
           </div>
           <div className="relative h-[400px] rounded-lg overflow-hidden shadow-lg">
@@ -97,10 +99,10 @@ export function HomePage() {
         <div className="bg-primary/5 rounded-lg p-8 md:p-12 border border-border">
           <h2 className="text-3xl text-center mb-6">Our Mission</h2>
           <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-            To advance scientific understanding of forest-atmosphere interactions through innovative 
-            sensor technology and rigorous data collection, contributing to evidence-based environmental 
-            policy and conservation efforts. We are committed to open science and making our data 
-            accessible to researchers, educators, and the public.
+            To advance scientific understanding of forest-atmosphere interactions through innovative
+            sensor technology and rigorous data collection, contributing to evidence-based
+            environmental policy and conservation efforts. We are committed to open science and
+            making our data accessible to researchers, educators, and the public.
           </p>
         </div>
       </div>

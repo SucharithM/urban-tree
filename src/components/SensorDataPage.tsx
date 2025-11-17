@@ -10,7 +10,7 @@ import {
   TreeDeciduous,
   Zap,
   Database,
-  Download
+  Download,
 } from "lucide-react";
 import { useState } from "react";
 import {
@@ -26,13 +26,7 @@ import {
 
 import { Badge } from "./ui/badge";
 import { Card } from "./ui/card";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "./ui/tabs";
-
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 
 type Trend = "up" | "down" | "steady";
 interface SensorReading {
@@ -366,7 +360,7 @@ export function SensorDataPage() {
     },
   ];
 
-  const currentNode = nodes.find(n => n.id === selectedNode)!;
+  const currentNode = nodes.find((n) => n.id === selectedNode)!;
   const currentData = nodeData[selectedNode];
 
   return (
@@ -385,12 +379,8 @@ export function SensorDataPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <Tabs defaultValue="live" className="space-y-8">
           <TabsList className="grid w-full max-w-md mx-auto grid-cols-2">
-            <TabsTrigger value="live">
-              Live Dashboard
-            </TabsTrigger>
-            <TabsTrigger value="catalog">
-              Data Catalog
-            </TabsTrigger>
+            <TabsTrigger value="live">Live Dashboard</TabsTrigger>
+            <TabsTrigger value="catalog">Data Catalog</TabsTrigger>
           </TabsList>
 
           {/* Live Dashboard */}
@@ -455,7 +445,9 @@ export function SensorDataPage() {
                     <div>
                       <p className="text-sm text-muted-foreground mb-1">Status</p>
                       <div className="flex items-center gap-2">
-                        <div className={`w-2 h-2 rounded-full ${currentNode.status === "active" ? "bg-green-500" : "bg-yellow-500"}`} />
+                        <div
+                          className={`w-2 h-2 rounded-full ${currentNode.status === "active" ? "bg-green-500" : "bg-yellow-500"}`}
+                        />
                         <p className="text-foreground capitalize">{currentNode.status}</p>
                       </div>
                     </div>
@@ -467,16 +459,12 @@ export function SensorDataPage() {
             {/* Status Indicator */}
             <div className="flex items-center justify-center gap-2">
               <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-muted-foreground">
-                Live data updating every 30 seconds
-              </span>
+              <span className="text-muted-foreground">Live data updating every 30 seconds</span>
             </div>
 
             {/* Current Readings */}
             <div>
-              <h2 className="text-3xl mb-6">
-                Current Readings - {currentNode.name}
-              </h2>
+              <h2 className="text-3xl mb-6">Current Readings - {currentNode.name}</h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <Card className="p-6 border-border">
                   <div className="flex items-start justify-between mb-4">
@@ -492,9 +480,7 @@ export function SensorDataPage() {
                       {currentData.currentReadings.temperature.change}
                     </Badge>
                   </div>
-                  <h3 className="text-muted-foreground mb-2">
-                    Temperature
-                  </h3>
+                  <h3 className="text-muted-foreground mb-2">Temperature</h3>
                   <p className="text-2xl text-foreground">
                     {currentData.currentReadings.temperature.value}
                     {currentData.currentReadings.temperature.unit}
@@ -515,9 +501,7 @@ export function SensorDataPage() {
                       {currentData.currentReadings.pressure.change}
                     </Badge>
                   </div>
-                  <h3 className="text-muted-foreground mb-2">
-                    Pressure
-                  </h3>
+                  <h3 className="text-muted-foreground mb-2">Pressure</h3>
                   <p className="text-2xl text-foreground">
                     {currentData.currentReadings.pressure.value}{" "}
                     {currentData.currentReadings.pressure.unit}
@@ -538,9 +522,7 @@ export function SensorDataPage() {
                       {currentData.currentReadings.humidity.change}
                     </Badge>
                   </div>
-                  <h3 className="text-muted-foreground mb-2">
-                    Humidity
-                  </h3>
+                  <h3 className="text-muted-foreground mb-2">Humidity</h3>
                   <p className="text-2xl text-foreground">
                     {currentData.currentReadings.humidity.value}
                     {currentData.currentReadings.humidity.unit}
@@ -561,9 +543,7 @@ export function SensorDataPage() {
                       {currentData.currentReadings.dendrometer.change}
                     </Badge>
                   </div>
-                  <h3 className="text-muted-foreground mb-2">
-                    Dendrometer
-                  </h3>
+                  <h3 className="text-muted-foreground mb-2">Dendrometer</h3>
                   <p className="text-2xl text-foreground">
                     {currentData.currentReadings.dendrometer.value}{" "}
                     {currentData.currentReadings.dendrometer.unit}
@@ -575,18 +555,14 @@ export function SensorDataPage() {
                     <Zap className="w-8 h-8 text-primary" />
                     <Badge
                       variant={
-                        currentData.currentReadings.sapflow.trend === "up"
-                          ? "default"
-                          : "secondary"
+                        currentData.currentReadings.sapflow.trend === "up" ? "default" : "secondary"
                       }
                       className="text-xs"
                     >
                       {currentData.currentReadings.sapflow.change}
                     </Badge>
                   </div>
-                  <h3 className="text-muted-foreground mb-2">
-                    Sap Flow
-                  </h3>
+                  <h3 className="text-muted-foreground mb-2">Sap Flow</h3>
                   <p className="text-2xl text-foreground">
                     {currentData.currentReadings.sapflow.value}{" "}
                     {currentData.currentReadings.sapflow.unit}
@@ -598,18 +574,14 @@ export function SensorDataPage() {
                     <Battery className="w-8 h-8 text-primary" />
                     <Badge
                       variant={
-                        currentData.currentReadings.battery.trend === "up"
-                          ? "default"
-                          : "secondary"
+                        currentData.currentReadings.battery.trend === "up" ? "default" : "secondary"
                       }
                       className="text-xs"
                     >
                       {currentData.currentReadings.battery.change}
                     </Badge>
                   </div>
-                  <h3 className="text-muted-foreground mb-2">
-                    Battery
-                  </h3>
+                  <h3 className="text-muted-foreground mb-2">Battery</h3>
                   <p className="text-2xl text-foreground">
                     {currentData.currentReadings.battery.value}
                     {currentData.currentReadings.battery.unit}
@@ -620,9 +592,7 @@ export function SensorDataPage() {
 
             {/* Temperature Chart */}
             <div>
-              <h2 className="text-3xl mb-6">
-                Temperature - Last 24 Hours
-              </h2>
+              <h2 className="text-3xl mb-6">Temperature - Last 24 Hours</h2>
               <Card className="p-6 border-border">
                 <ResponsiveContainer width="100%" height={300}>
                   <LineChart data={currentData.temperatureHistory}>
@@ -645,9 +615,7 @@ export function SensorDataPage() {
 
             {/* Pressure Chart */}
             <div>
-              <h2 className="text-3xl mb-6">
-                Pressure - Last 24 Hours
-              </h2>
+              <h2 className="text-3xl mb-6">Pressure - Last 24 Hours</h2>
               <Card className="p-6 border-border">
                 <ResponsiveContainer width="100%" height={300}>
                   <LineChart data={currentData.pressureHistory}>
@@ -670,9 +638,7 @@ export function SensorDataPage() {
 
             {/* Humidity Chart */}
             <div>
-              <h2 className="text-3xl mb-6">
-                Humidity - Last 24 Hours
-              </h2>
+              <h2 className="text-3xl mb-6">Humidity - Last 24 Hours</h2>
               <Card className="p-6 border-border">
                 <ResponsiveContainer width="100%" height={300}>
                   <LineChart data={currentData.humidityHistory}>
@@ -695,9 +661,7 @@ export function SensorDataPage() {
 
             {/* Dendrometer Chart */}
             <div>
-              <h2 className="text-3xl mb-6">
-                Dendrometer - Last 24 Hours
-              </h2>
+              <h2 className="text-3xl mb-6">Dendrometer - Last 24 Hours</h2>
               <Card className="p-6 border-border">
                 <ResponsiveContainer width="100%" height={300}>
                   <LineChart data={currentData.dendrometerHistory}>
@@ -720,9 +684,7 @@ export function SensorDataPage() {
 
             {/* Sap Flow Chart */}
             <div>
-              <h2 className="text-3xl mb-6">
-                Sap Flow - Last 24 Hours
-              </h2>
+              <h2 className="text-3xl mb-6">Sap Flow - Last 24 Hours</h2>
               <Card className="p-6 border-border">
                 <ResponsiveContainer width="100%" height={300}>
                   <LineChart data={currentData.sapflowHistory}>
@@ -745,9 +707,7 @@ export function SensorDataPage() {
 
             {/* Battery Chart */}
             <div>
-              <h2 className="text-3xl mb-6">
-                Battery Level - Last 24 Hours
-              </h2>
+              <h2 className="text-3xl mb-6">Battery Level - Last 24 Hours</h2>
               <Card className="p-6 border-border">
                 <ResponsiveContainer width="100%" height={300}>
                   <LineChart data={currentData.batteryHistory}>
@@ -774,60 +734,35 @@ export function SensorDataPage() {
             <div>
               <div className="flex items-center gap-3 mb-8">
                 <Database className="w-8 h-8 text-primary" />
-                <h2 className="text-3xl">
-                  Historical Data Archive
-                </h2>
+                <h2 className="text-3xl">Historical Data Archive</h2>
               </div>
               <p className="text-muted-foreground mb-8">
-                Access our comprehensive archive of
-                environmental sensor data. All datasets are
-                available for download in multiple formats for
-                research and educational purposes.
+                Access our comprehensive archive of environmental sensor data. All datasets are
+                available for download in multiple formats for research and educational purposes.
               </p>
 
               <div className="space-y-4">
                 {datasets.map((dataset, index) => (
-                  <Card
-                    key={index}
-                    className="p-6 border-border hover:shadow-lg transition-shadow"
-                  >
+                  <Card key={index} className="p-6 border-border hover:shadow-lg transition-shadow">
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1">
-                        <h3 className="text-foreground mb-3">
-                          {dataset.name}
-                        </h3>
+                        <h3 className="text-foreground mb-3">{dataset.name}</h3>
                         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
                           <div>
-                            <p className="text-muted-foreground mb-1">
-                              Time Period
-                            </p>
-                            <p className="text-foreground">
-                              {dataset.period}
-                            </p>
+                            <p className="text-muted-foreground mb-1">Time Period</p>
+                            <p className="text-foreground">{dataset.period}</p>
                           </div>
                           <div>
-                            <p className="text-muted-foreground mb-1">
-                              Dataset Size
-                            </p>
-                            <p className="text-foreground">
-                              {dataset.size}
-                            </p>
+                            <p className="text-muted-foreground mb-1">Dataset Size</p>
+                            <p className="text-foreground">{dataset.size}</p>
                           </div>
                           <div>
-                            <p className="text-muted-foreground mb-1">
-                              Total Records
-                            </p>
-                            <p className="text-foreground">
-                              {dataset.records}
-                            </p>
+                            <p className="text-muted-foreground mb-1">Total Records</p>
+                            <p className="text-foreground">{dataset.records}</p>
                           </div>
                           <div>
-                            <p className="text-muted-foreground mb-1">
-                              File Formats
-                            </p>
-                            <p className="text-foreground">
-                              {dataset.format}
-                            </p>
+                            <p className="text-muted-foreground mb-1">File Formats</p>
+                            <p className="text-foreground">{dataset.format}</p>
                           </div>
                         </div>
                       </div>
@@ -843,26 +778,23 @@ export function SensorDataPage() {
 
             {/* Data Access Information */}
             <div className="bg-primary/5 rounded-lg p-8 border border-border">
-              <h3 className="text-2xl mb-4">
-                Data Access & Usage
-              </h3>
+              <h3 className="text-2xl mb-4">Data Access & Usage</h3>
               <div className="space-y-3 text-muted-foreground">
                 <p>
-                  Our data is freely available for research and
-                  educational purposes under a Creative Commons
-                  Attribution 4.0 International License.
+                  Our data is freely available for research and educational purposes under a
+                  Creative Commons Attribution 4.0 International License.
                 </p>
                 <p>
-                  If you use this data in your research, please
-                  cite our dataset and publications. We also
-                  encourage you to contact us about your
-                  research - we'd love to hear how our data is
-                  being used!
+                  If you use this data in your research, please cite our dataset and publications.
+                  We also encourage you to contact us about your research - we'd love to hear how
+                  our data is being used!
                 </p>
                 <p>
-                  For questions about data access, formats, or
-                  metadata, please contact our data manager at
-                  <a href="mailto:data@lab.edu" className="underline">data@lab.edu</a>
+                  For questions about data access, formats, or metadata, please contact our data
+                  manager at
+                  <a href="mailto:data@lab.edu" className="underline">
+                    data@lab.edu
+                  </a>
                 </p>
               </div>
             </div>

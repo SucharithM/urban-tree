@@ -8,37 +8,43 @@ export function TeamPage() {
     {
       name: "Dr. Joy Winbourne",
       role: "Principal Investigator",
-      description: "Environmental scientist specializing in forest ecology and carbon cycling. PhD in Environmental Science with over 15 years of research experience.",
+      description:
+        "Environmental scientist specializing in forest ecology and carbon cycling. PhD in Environmental Science with over 15 years of research experience.",
       email: "joy.winbourne@university.edu",
     },
     {
       name: "Sarah Martinez",
       role: "Postdoctoral Researcher",
-      description: "Focuses on soil-atmosphere CO2 exchange and microbial ecology. Expert in eddy covariance techniques and data analysis.",
+      description:
+        "Focuses on soil-atmosphere CO2 exchange and microbial ecology. Expert in eddy covariance techniques and data analysis.",
       email: "s.martinez@university.edu",
     },
     {
       name: "James Chen",
       role: "PhD Candidate",
-      description: "Researching the effects of climate variability on forest carbon uptake. Managing the sensor network infrastructure and data pipelines.",
+      description:
+        "Researching the effects of climate variability on forest carbon uptake. Managing the sensor network infrastructure and data pipelines.",
       email: "j.chen@university.edu",
     },
     {
       name: "Emily Thompson",
       role: "Research Assistant",
-      description: "Supporting field operations and data collection. Background in environmental monitoring and GIS analysis.",
+      description:
+        "Supporting field operations and data collection. Background in environmental monitoring and GIS analysis.",
       email: "e.thompson@university.edu",
     },
     {
       name: "Michael Rodriguez",
       role: "Undergraduate Researcher",
-      description: "Computer science student developing the data visualization platform. Passionate about environmental technology.",
+      description:
+        "Computer science student developing the data visualization platform. Passionate about environmental technology.",
       email: "m.rodriguez@university.edu",
     },
     {
       name: "Lisa Park",
       role: "Lab Technician",
-      description: "Maintains and calibrates sensor equipment. Ensures data quality and manages field site logistics.",
+      description:
+        "Maintains and calibrates sensor equipment. Ensures data quality and manages field site logistics.",
       email: "l.park@university.edu",
     },
   ];
@@ -94,9 +100,10 @@ export function TeamPage() {
         <div className="mt-16 bg-primary/5 rounded-lg p-8 md:p-12 border border-border">
           <h2 className="text-3xl text-center mb-6">Join Our Research</h2>
           <p className="text-center text-muted-foreground max-w-3xl mx-auto mb-8">
-            We are always looking for passionate researchers, students, and collaborators who share 
-            our commitment to environmental science. Whether you're interested in fieldwork, data 
-            analysis, or software development, there may be opportunities to contribute to our research.
+            We are always looking for passionate researchers, students, and collaborators who share
+            our commitment to environmental science. Whether you're interested in fieldwork, data
+            analysis, or software development, there may be opportunities to contribute to our
+            research.
           </p>
           <div className="text-center">
             <a

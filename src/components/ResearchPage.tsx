@@ -38,21 +38,24 @@ export function ResearchPage() {
   const projects = [
     {
       title: "Real-time Environmental Sensor Network",
-      description: "Development of a comprehensive wireless sensor network for continuous monitoring of forest environmental conditions. This project aims to create an open-source platform for environmental data collection and visualization.",
+      description:
+        "Development of a comprehensive wireless sensor network for continuous monitoring of forest environmental conditions. This project aims to create an open-source platform for environmental data collection and visualization.",
       status: "Active",
       funding: "NSF Grant",
       duration: "2022-2025",
     },
     {
       title: "Forest Carbon Dynamics Study",
-      description: "Investigation of seasonal and inter-annual variability in forest carbon uptake and release. Using eddy covariance techniques to measure ecosystem-scale CO2 fluxes.",
+      description:
+        "Investigation of seasonal and inter-annual variability in forest carbon uptake and release. Using eddy covariance techniques to measure ecosystem-scale CO2 fluxes.",
       status: "Active",
       funding: "DOE Grant",
       duration: "2021-2024",
     },
     {
       title: "Climate Resilience in Forest Ecosystems",
-      description: "Examining how forest ecosystems respond to extreme weather events and long-term climate trends. Focus on understanding mechanisms of resilience and adaptation.",
+      description:
+        "Examining how forest ecosystems respond to extreme weather events and long-term climate trends. Focus on understanding mechanisms of resilience and adaptation.",
       status: "Active",
       funding: "University Research Fund",
       duration: "2023-2026",
@@ -192,27 +195,21 @@ export function ResearchPage() {
                 <span className="text-2xl">🌡️</span>
               </div>
               <h3 className="text-foreground mb-2">Climate Science</h3>
-              <p className="text-sm text-muted-foreground">
-                Climate change impacts and adaptation
-              </p>
+              <p className="text-sm text-muted-foreground">Climate change impacts and adaptation</p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
                 <span className="text-2xl">💨</span>
               </div>
               <h3 className="text-foreground mb-2">Carbon Cycling</h3>
-              <p className="text-sm text-muted-foreground">
-                CO2 exchange and carbon sequestration
-              </p>
+              <p className="text-sm text-muted-foreground">CO2 exchange and carbon sequestration</p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
                 <span className="text-2xl">📡</span>
               </div>
               <h3 className="text-foreground mb-2">Sensor Technology</h3>
-              <p className="text-sm text-muted-foreground">
-                Environmental monitoring systems
-              </p>
+              <p className="text-sm text-muted-foreground">Environmental monitoring systems</p>
             </div>
           </div>
         </div>

@@ -24,7 +24,7 @@ export function Navigation({ currentPage, onNavigate }: NavigationProps) {
               <p className="text-xs text-primary-foreground/80">Environmental Research Lab</p>
             </div>
           </div>
-          
+
           <div className="flex gap-1">
             {links.map((link) => (
               <button
