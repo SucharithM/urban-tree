@@ -9,44 +9,37 @@ export function TeamPage() {
       name: "Dr. Joy Winbourne",
       role: "Principal Investigator",
       description:
-        "Environmental scientist specializing in forest ecology and carbon cycling. PhD in Environmental Science with over 15 years of research experience.",
+        "As a terrestrial biogeochemist and global change ecologist, my research is focused on understanding how plants and soils regulate the movement of carbon, nutrients, and water in terrestrial ecosystems. I am particularly interested in understanding how human activities, such as urbanization, deforestation, forest fragmentation, and climate change, alter biogeochemical cycles. My research agenda is motivated by the need for actionable ecological data and theory to inform sustainable environmental policies and evaluate their efficacy, especially in the context of global climate change. To address these research aims I have conducted studies in remote tropical forests to the densely populated cities of northeastern United States. I integrate field studies, molecular analyses, stable isotopes, remote sensing, meta-analyses, and modeling approaches to scale ecosystem processes at the individual soil core or tree to landscape scales. ",
       email: "joy.winbourne@university.edu",
     },
     {
-      name: "Sarah Martinez",
-      role: "Postdoctoral Researcher",
+      name: "Andrea Gamache",
+      role: "Phd Student ",
       description:
-        "Focuses on soil-atmosphere CO2 exchange and microbial ecology. Expert in eddy covariance techniques and data analysis.",
+        "Andrea is an enthusiastic disturbance biologist with a BS in Environmental Biology from Christopher Newport University and a MA in Integrative Biology from Kennesaw State University. For her MA, Andrea studied the impact of forest fire and cicada emergence on forest community composition and soil chemistry. For her dissertation research, Andrea plans to study the impact of urbanization and other stressors on plant ecophysiology.  ",
       email: "s.martinez@university.edu",
     },
     {
-      name: "James Chen",
-      role: "PhD Candidate",
+      name: "Evan Paige",
+      role: "Master Student",
       description:
         "Researching the effects of climate variability on forest carbon uptake. Managing the sensor network infrastructure and data pipelines.",
       email: "j.chen@university.edu",
     },
     {
-      name: "Emily Thompson",
-      role: "Research Assistant",
+      name: "Robert Scott",
+      role: " Undergraduate Student",
       description:
-        "Supporting field operations and data collection. Background in environmental monitoring and GIS analysis.",
+        "2022/2023 Academic Year Immersive Scholar,2023/2024 Research Assistant",
       email: "e.thompson@university.edu",
     },
     {
-      name: "Michael Rodriguez",
-      role: "Undergraduate Researcher",
+      name: "Cecilia Eluszkiewicz",
+      role: " Undergraduate Student ",
       description:
-        "Computer science student developing the data visualization platform. Passionate about environmental technology.",
+        "2022 Summer Immersive Scholar,2024 Summer Research Assistant ",
       email: "m.rodriguez@university.edu",
-    },
-    {
-      name: "Lisa Park",
-      role: "Lab Technician",
-      description:
-        "Maintains and calibrates sensor equipment. Ensures data quality and manages field site logistics.",
-      email: "l.park@university.edu",
-    },
+    }
   ];
 
   return (
@@ -100,10 +93,7 @@ export function TeamPage() {
         <div className="mt-16 bg-primary/5 rounded-lg p-8 md:p-12 border border-border">
           <h2 className="text-3xl text-center mb-6">Join Our Research</h2>
           <p className="text-center text-muted-foreground max-w-3xl mx-auto mb-8">
-            We are always looking for passionate researchers, students, and collaborators who share
-            our commitment to environmental science. Whether you're interested in fieldwork, data
-            analysis, or software development, there may be opportunities to contribute to our
-            research.
+            We are recruiting! If you are interested in pursuing a Ph.D. in Earth System Sciences studying impacts of urbanization on forest ecosystem processes, please contact Dr. Joy Winbourne by email with a copy of your CV and a description of your research interests to start a conversation. 
           </p>
           <div className="text-center">
             <a

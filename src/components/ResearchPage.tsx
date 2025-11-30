@@ -37,29 +37,20 @@ export function ResearchPage() {
 
   const projects = [
     {
-      title: "Real-time Environmental Sensor Network",
+      title: "UML food forest",
       description:
-        "Development of a comprehensive wireless sensor network for continuous monitoring of forest environmental conditions. This project aims to create an open-source platform for environmental data collection and visualization.",
+        "The UMass Lowell Food Forest was established in spring 2024 and is home to a variety of fruit trees, and edible perennial plants. Located at 46 Wilder Street on South Campus, members of the campus and community can visit and harvest what they need free of charge.",
       status: "Active",
-      funding: "NSF Grant",
-      duration: "2022-2025",
+      link: "https://www.uml.edu/office-sustainability/urban-agriculture-program/food-forest.aspx",
+
     },
     {
-      title: "Forest Carbon Dynamics Study",
+      title: "Saint Louis Sponge Park",
       description:
-        "Investigation of seasonal and inter-annual variability in forest carbon uptake and release. Using eddy covariance techniques to measure ecosystem-scale CO2 fluxes.",
+        "n the summer of 2025, the City of Lowell started construction on renovation of Saint Louis Sponge Park and Riverview Park (SLSP).The park renovation plans will transform this underutilized 6-acre park into a regional destination and model of climate resiliency. ",
       status: "Active",
-      funding: "DOE Grant",
-      duration: "2021-2024",
-    },
-    {
-      title: "Climate Resilience in Forest Ecosystems",
-      description:
-        "Examining how forest ecosystems respond to extreme weather events and long-term climate trends. Focus on understanding mechanisms of resilience and adaptation.",
-      status: "Active",
-      funding: "University Research Fund",
-      duration: "2023-2026",
-    },
+      link: "https://www.lowellma.gov/1792/Saint-Louis-Sponge-Park-Phase-1",
+    }
   ];
 
   const presentations = [
@@ -113,12 +104,7 @@ export function ResearchPage() {
                 <p className="text-sm text-muted-foreground mb-4">{project.description}</p>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Funding:</span>
-                    <span className="text-foreground">{project.funding}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Duration:</span>
-                    <span className="text-foreground">{project.duration}</span>
+                    <span className="text-foreground"><a href={project.link} target="_blank" rel="noopener noreferrer">Read More</a></span>
                   </div>
                 </div>
               </Card>
