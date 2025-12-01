@@ -6,59 +6,55 @@ import { Card } from "./ui/card";
 export function ResearchPage() {
   const publications = [
     {
-      title: "Long-term patterns of carbon dioxide exchange in temperate deciduous forests",
-      authors: "Winbourne, J., Martinez, S., Chen, J.",
-      journal: "Global Change Biology",
+      title:
+        "Building resilience: Risks and opportunities for housing stocks in “gateway” cities under changing extreme temperatures and energy systems",
+      authors:
+        "Juliette N Rooney-varga, TC Chakraborty, Laurie A Agel, Mathew A Barlow, Lucia Cheney, Saeed Gholamzadeh, Arghavan Louhghalam, Joy Beth Winbourne, Andrea Gamache",
+      journal: "AGU25",
+      year: "2025",
+      type: "Journal Article",
+    },
+    {
+      title:
+        "Inga and Lianas Are Key Players in the Tropical Nitrogen Cycle of Brazilian Atlantic Forest: Insights From Linking Rates of Nitrogen Fixation With DNA Barcoding Root Identification",
+      authors: "JB Winbourne, KE Hasenstab‐Lehman, AN Egan, D Piotto, WJ Kress, S Porder",
+      journal: "Biotropica",
+      year: "2025",
+      type: "Journal Article",
+    },
+    {
+      title: "Introducing the Urban Trees Ecophysiology Network",
+      authors:
+        "Joy Beth Winbourne, Meghan Blumstein, Xue Feng, Maria Elena Fernandez, Erez Feuer, Gabriel Gatica, Jess Gersony, Corina Graciano, Javier Gyenge, William M Hammond, Grace P John, Daniel M Johnson, Taylor Jones, Marylou Mantova, Yair Mau, Einat Shemesh, Alessandro Ossola, Renee Prokopavicius, Kaisa Rissanen, Beatriz Salgado-Negret, Leonardo Sallesses, Robert Skelton, Jean V Wilkening, Yakir Preisler",
+      journal: "AGU Fall Meeting Abstracts",
       year: "2024",
       type: "Journal Article",
     },
     {
-      title: "Soil moisture dynamics and their influence on forest productivity",
-      authors: "Winbourne, J., Park, L., Thompson, E.",
-      journal: "Ecological Applications",
-      year: "2023",
-      type: "Journal Article",
-    },
-    {
-      title: "Advances in wireless sensor networks for environmental monitoring",
-      authors: "Chen, J., Rodriguez, M., Winbourne, J.",
-      journal: "Environmental Science & Technology",
-      year: "2023",
-      type: "Journal Article",
-    },
-    {
-      title: "Climate change impacts on forest-atmosphere CO2 exchange",
-      authors: "Martinez, S., Winbourne, J.",
-      journal: "Nature Climate Change",
-      year: "2022",
+      title:
+        "Spatial and seasonal trends in biogenic and fossil fuel carbon dioxide fluxes among three metropolitan regions",
+      authors:
+        "Joy Beth Winbourne, Conor Gately, Irene Palazzoli, Laura A Schifman, Ian A Smith, Lucy Hutyra",
+      journal: "AGU Fall Meeting Abstracts",
+      year: "2024",
       type: "Journal Article",
     },
   ];
 
   const projects = [
     {
-      title: "Real-time Environmental Sensor Network",
+      title: "UML food forest",
       description:
-        "Development of a comprehensive wireless sensor network for continuous monitoring of forest environmental conditions. This project aims to create an open-source platform for environmental data collection and visualization.",
+        "The UMass Lowell Food Forest was established in spring 2024 and is home to a variety of fruit trees, and edible perennial plants. Located at 46 Wilder Street on South Campus, members of the campus and community can visit and harvest what they need free of charge.",
       status: "Active",
-      funding: "NSF Grant",
-      duration: "2022-2025",
+      link: "https://www.uml.edu/office-sustainability/urban-agriculture-program/food-forest.aspx",
     },
     {
-      title: "Forest Carbon Dynamics Study",
+      title: "Saint Louis Sponge Park",
       description:
-        "Investigation of seasonal and inter-annual variability in forest carbon uptake and release. Using eddy covariance techniques to measure ecosystem-scale CO2 fluxes.",
+        "n the summer of 2025, the City of Lowell started construction on renovation of Saint Louis Sponge Park and Riverview Park (SLSP).The park renovation plans will transform this underutilized 6-acre park into a regional destination and model of climate resiliency. ",
       status: "Active",
-      funding: "DOE Grant",
-      duration: "2021-2024",
-    },
-    {
-      title: "Climate Resilience in Forest Ecosystems",
-      description:
-        "Examining how forest ecosystems respond to extreme weather events and long-term climate trends. Focus on understanding mechanisms of resilience and adaptation.",
-      status: "Active",
-      funding: "University Research Fund",
-      duration: "2023-2026",
+      link: "https://www.lowellma.gov/1792/Saint-Louis-Sponge-Park-Phase-1",
     },
   ];
 
@@ -113,12 +109,11 @@ export function ResearchPage() {
                 <p className="text-sm text-muted-foreground mb-4">{project.description}</p>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Funding:</span>
-                    <span className="text-foreground">{project.funding}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Duration:</span>
-                    <span className="text-foreground">{project.duration}</span>
+                    <span className="text-foreground">
+                      <a href={project.link} target="_blank" rel="noopener noreferrer">
+                        Read More
+                      </a>
+                    </span>
                   </div>
                 </div>
               </Card>
