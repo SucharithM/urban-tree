@@ -13,8 +13,7 @@
     "format:fix": "prettier . --write",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:watch": "vitest",
-    "prepare": "husky"
+    "test:watch": "vitest"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
