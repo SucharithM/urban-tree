@@ -1,9 +1,15 @@
 import { Mail, GraduationCap, Users } from "lucide-react";
-
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Card } from "./ui/card";
+import { } from "../app/publications";
+import { IntlProvider, FormattedMessage } from "react-intl";
+import messages_en from "../app/locales/en.json";
+import messages_es from "../app/locales/es.json";
+import { teamMembers_en, teamMembers_es } from "../app/publications";
+import { useSelector, useDispatch } from 'react-redux';
 
 export function TeamPage() {
+<<<<<<< Updated upstream
   const teamMembers = [
     {
       name: "Dr. Joy Winbourne",
@@ -39,54 +45,85 @@ export function TeamPage() {
       email: "placeholder@university.edu",
     },
   ];
+=======
+
+  const locale = useSelector(state => state.locale.value)
+
+  let teamMembers = locale === "es" ? teamMembers_es : teamMembers_en;
+
+  const messages = {
+    en: messages_en,
+    es: messages_es
+  }
+>>>>>>> Stashed changes
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header Section */}
-      <div className="relative h-[300px] overflow-hidden">
-        <ImageWithFallback
-          src="https://images.unsplash.com/photo-1758873271761-6cfe9b4f000c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZXNlYXJjaCUyMHRlYW0lMjBtZWV0aW5nfGVufDF8fHx8MTc2MjI4NjI1Mnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-          alt="Research team"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/50 to-primary/70" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center px-4">
-            <Users className="w-16 h-16 text-white mx-auto mb-4" />
-            <h1 className="text-4xl md:text-5xl text-white">Meet Our Team</h1>
-            <p className="text-xl text-white/90 mt-4">
-              Dedicated researchers advancing environmental science
-            </p>
+    <IntlProvider locale={locale} messages={messages[locale]}>
+      <div className="min-h-screen bg-background">
+        {/* Header Section */}
+        <div className="relative h-[300px] overflow-hidden">
+          <ImageWithFallback
+            src="https://images.unsplash.com/photo-1758873271761-6cfe9b4f000c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZXNlYXJjaCUyMHRlYW0lMjBtZWV0aW5nfGVufDF8fHx8MTc2MjI4NjI1Mnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+            alt="Research team"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-primary/50 to-primary/70" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center px-4">
+              <Users className="w-16 h-16 text-white mx-auto mb-4" />
+              <h1 className="text-4xl md:text-5xl text-white"><FormattedMessage id="Meet Our Team" /></h1>
+              <p className="text-xl text-white/90 mt-4">
+                <FormattedMessage id="Dedicated researchers advancing environmental science" />
+              </p>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Team Members */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {teamMembers.map((member, index) => (
-            <Card key={index} className="p-6 hover:shadow-xl transition-all border-border">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <GraduationCap className="w-6 h-6 text-primary" />
+        {/* Team Members */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {teamMembers.map((member, index) => (
+              <Card key={index} className="p-6 hover:shadow-xl transition-all border-border">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <GraduationCap className="w-6 h-6 text-primary" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-foreground mb-1">{member.name}</h3>
+                    <p className="text-sm text-primary">{member.role}</p>
+                  </div>
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-foreground mb-1">{member.name}</h3>
-                  <p className="text-sm text-primary">{member.role}</p>
-                </div>
-              </div>
-              <p className="text-sm text-muted-foreground mb-4">{member.description}</p>
+                <p className="text-sm text-muted-foreground mb-4">{member.description}</p>
+                <a
+                  href={`mailto:${member.email}`}
+                  className="flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors"
+                >
+                  <Mail className="w-4 h-4" />
+                  {member.email}
+                </a>
+              </Card>
+            ))}
+          </div>
+
+          {/* Collaboration Section */}
+          <div className="mt-16 bg-primary/5 rounded-lg p-8 md:p-12 border border-border">
+            <h2 className="text-3xl text-center mb-6"><FormattedMessage id="Join Our Research" /></h2>
+            <p className="text-center text-muted-foreground max-w-3xl mx-auto mb-8">
+              <FormattedMessage id="research-pitch" />
+            </p>
+            <div className="text-center">
               <a
-                href={`mailto:${member.email}`}
-                className="flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors"
+                href="mailto:joy.winbourne@university.edu"
+                className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-md hover:bg-primary/90 transition-colors"
               >
-                <Mail className="w-4 h-4" />
-                {member.email}
+                <Mail className="w-5 h-5" />
+                <FormattedMessage id="Contact Us" />
               </a>
-            </Card>
-          ))}
+            </div>
+          </div>
         </div>
 
+<<<<<<< Updated upstream
         {/* Collaboration Section */}
         <div className="mt-16 bg-primary/5 rounded-lg p-8 md:p-12 border border-border">
           <h2 className="text-3xl text-center mb-6">Join Our Research</h2>
@@ -104,9 +141,18 @@ export function TeamPage() {
               <Mail className="w-5 h-5" />
               Contact Us
             </a>
+=======
+        {/* Footer */}
+        <footer className="bg-primary text-primary-foreground mt-16 py-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p className="text-sm">
+              <FormattedMessage id="disclaimer" />
+            </p>
+>>>>>>> Stashed changes
           </div>
-        </div>
+        </footer>
       </div>
+<<<<<<< Updated upstream
 
       {/* Footer */}
       <footer className="bg-primary text-primary-foreground mt-16 py-8">
@@ -117,5 +163,8 @@ export function TeamPage() {
         </div>
       </footer>
     </div>
+=======
+    </IntlProvider>
+>>>>>>> Stashed changes
   );
 }

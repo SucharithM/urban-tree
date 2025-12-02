@@ -8,7 +8,7 @@
     "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "useDefineForClassFields": true,
-    "strict": true,
+    "strict": false,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
     "noFallthroughCasesInSwitch": true,

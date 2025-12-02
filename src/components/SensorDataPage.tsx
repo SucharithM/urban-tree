@@ -12,7 +12,7 @@ import {
   Database,
   Download,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   LineChart,
   Line,
@@ -27,6 +27,11 @@ import {
 import { Badge } from "./ui/badge";
 import { Card } from "./ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import axios from "axios";
+import { IntlProvider, FormattedMessage } from "react-intl";
+import messages_en from "../app/locales/en.json";
+import messages_es from "../app/locales/es.json";
+import { useSelector, useDispatch } from 'react-redux';
 
 type Trend = "up" | "down" | "steady";
 interface SensorReading {
@@ -58,41 +63,234 @@ interface NodeData {
 
 export function SensorDataPage() {
   const [selectedNode, setSelectedNode] = useState("node1");
+  const [currentData, setCurrentData] = useState({});
+  const [result, setResult] = useState({
+    node1: {
+      temperatureHistory: [],
+      pressureHistory: [],
+      humidityHistory: [],
+      dendrometerHistory: [],
+      sapflowHistory: [],
+      batteryHistory: [],
+      sf_noise: [],
+      sf_maxD: []
+
+    }
+  });
+  debugger
+
+  const locale = useSelector(state => state.locale.value)
+  const dispatch = useDispatch()
+
+  // const [locale, setLocale] = useState("en");
+
+  const messages = {
+    en: messages_en,
+    es: messages_es
+  }
+
+  useEffect(() => {
+    // Make GET request to fetch data
+    axios
+      .get("http://localhost:8000/treeData/")
+      .then((response) => {
+        debugger
+        console.log('Count has changed:');
+        // setNodeData(response.data);
+        let parsed_data = convertSensorData(response.data);
+        setCurrentData(parsed_data);
+        console.log(JSON.stringify(currentData, null, 2));
+      })
+      .catch((err) => {
+        console.log(err)
+      });
+  }, []);
 
   const nodes = [
     {
       id: "node1",
-      name: "Oak Ridge Station",
+      name: "HF Witness",
       location: "38.7456°N, 92.3289°W",
       sensorDepths: "10cm, 30cm, 50cm",
       pi: "Dr. Sarah Chen",
       status: "active",
-    },
-    {
-      id: "node2",
-      name: "Pine Valley Site",
-      location: "38.7512°N, 92.3145°W",
-      sensorDepths: "15cm, 35cm, 60cm",
-      pi: "Dr. James Martinez",
-      status: "active",
-    },
-    {
-      id: "node3",
-      name: "Maple Creek Point",
-      location: "38.7389°N, 92.3401°W",
-      sensorDepths: "10cm, 25cm, 45cm",
-      pi: "Dr. Emily Thompson",
-      status: "active",
-    },
-    {
-      id: "node4",
-      name: "Birch Forest Hub",
-      location: "38.7623°N, 92.3198°W",
-      sensorDepths: "12cm, 30cm, 55cm",
-      pi: "Dr. Michael Park",
-      status: "maintenance",
-    },
+    }
+    // {
+    //   id: "node2",
+    //   name: "Pine Valley Site",
+    //   location: "38.7512°N, 92.3145°W",
+    //   sensorDepths: "15cm, 35cm, 60cm",
+    //   pi: "Dr. James Martinez",
+    //   status: "active",
+    // },
+    // {
+    //   id: "node3",
+    //   name: "Maple Creek Point",
+    //   location: "38.7389°N, 92.3401°W",
+    //   sensorDepths: "10cm, 25cm, 45cm",
+    //   pi: "Dr. Emily Thompson",
+    //   status: "active",
+    // },
+    // {
+    //   id: "node4",
+    //   name: "Birch Forest Hub",
+    //   location: "38.7623°N, 92.3198°W",
+    //   sensorDepths: "12cm, 30cm, 55cm",
+    //   pi: "Dr. Michael Park",
+    //   status: "maintenance",
+    // },
   ];
+
+  function convertSensorData(rawData) {
+
+    const result = {
+    node1: {
+      temperatureHistory: [],
+      pressureHistory: [],
+      humidityHistory: [],
+      dendrometerHistory: [],
+      sapflowHistory: [],
+      batteryHistory: [],
+      sf_noise: [],
+      sf_maxD: []
+    }
+  };
+    // Parse the JSON if it's a string
+    const data = typeof rawData === 'string' ? JSON.parse(rawData) : rawData;
+
+    // Initialize result object with empty arrays
+
+    Object.entries(data["Dendro"]).forEach(([key, value]) => {
+      // debugger
+      result.node1.dendrometerHistory.push({
+        // time: timeStamp_data[i],
+        value: parseFloat(value)
+      });
+    })
+
+    Object.entries(data["Humidity"]).forEach(([key, value]) => {
+      // debugger
+      result.node1.humidityHistory.push({
+        // time: timeStamp_data[i],
+        value: parseFloat(value)
+      });
+
+    })
+
+    Object.entries(data["Pressure"]).forEach(([key, value]) => {
+      // debugger
+      result.node1.pressureHistory.push({
+        // time: timeStamp_data[i]
+        value: parseFloat(value)
+      });
+
+    })
+
+    Object.entries(data["SF_Noise"]).forEach(([key, value]) => {
+      // debugger
+      result.node1.sf_noise.push({
+        // time: timeStamp_data[i]
+        value: parseFloat(value)
+      });
+
+    })
+
+    Object.entries(data["SF_maxD"]).forEach(([key, value]) => {
+      // debugger
+      result.node1.sf_maxD.push({
+        // time: timeStamp_data[i]
+        value: parseFloat(value)
+      });
+
+    })
+
+    Object.entries(data["Sapflow"]).forEach(([key, value]) => {
+      // debugger
+      result.node1.sapflowHistory.push({
+        // time: timeStamp_data[i]
+        value: parseFloat(value)
+      });
+
+    })
+
+    Object.entries(data["Temperature"]).forEach(([key, value]) => {
+      // debugger
+      result.node1.temperatureHistory.push({
+        // time: timeStamp_data[i]
+        value: parseFloat(value)
+      });
+
+    })
+
+    Object.entries(data["Timestamp"]).forEach(([key, value]) => {
+      result.node1.temperatureHistory[key]["time"] = value
+
+      result.node1.sapflowHistory[key]["time"] = value
+
+      result.node1.sf_maxD[key]["time"] = value
+
+      result.node1.sf_noise[key]["time"] = value
+
+      result.node1.pressureHistory[key]["time"] = value
+
+      result.node1.humidityHistory[key]["time"] = value
+
+      result.node1.dendrometerHistory[key]["time"] = value
+    });
+
+    console.log(result.node1 + " ")
+    return result.node1;
+  }
+
+
+  //   Object.entries(data).forEach(([key, value]) => {
+
+  //     const timestamp = new Date(item.Timestamp_Raw);
+  //     // const time = timestamp.toTimeString(); 
+
+  //     // Add temperature data (skip if 0 or Null)
+  //     if (item.Temperature && item.Temperature !== "0" && item.Temperature !== "Null") {
+  //       result.node1.temperatureHistory.push({
+  //         time: timestamp,
+  //         value: parseFloat(item.Temperature)
+  //       });
+  //     }
+
+  //     // Add pressure data (skip if 0 or Null)
+  //     if (item.Pressure && item.Pressure !== "0" && item.Pressure !== "Null") {
+  //       result.node1.pressureHistory.push({
+  //         time: timestamp,
+  //         value: parseFloat(item.Pressure)
+  //       });
+  //     }
+
+  //     // Add humidity data (skip if 0 or Null)
+  //     if (item.Humidity && item.Humidity !== "0" && item.Humidity !== "Null") {
+  //       result.node1.humidityHistory.push({
+  //         time: timestamp,
+  //         value: parseFloat(item.Humidity)
+  //       });
+  //     }
+
+  //     // Add dendrometer data (always include, even negative values)
+  //     if (item.Dendro && item.Dendro !== "Null") {
+  //       result.node1.dendrometerHistory.push({
+  //         time: timestamp,
+  //         value: parseFloat(item.Dendro)
+  //       });
+  //     }
+
+  //     // Add sapflow data (skip if Null)
+  //     if (item.Sapflow && item.Sapflow !== "Null") {
+  //       result.node1.sapflowHistory.push({
+  //         time: timestamp,
+  //         value: parseFloat(item.Sapflow)
+  //       });
+  //     }
+  //   });
+
+  //   return result;
+  // }
 
   const nodeData: Record<string, NodeData> = {
     node1: {
@@ -360,458 +558,330 @@ export function SensorDataPage() {
     },
   ];
 
-  const currentNode = nodes.find((n) => n.id === selectedNode)!;
-  const currentData = nodeData[selectedNode];
   if (!currentData) {
     return <div>Loading...</div>;
   }
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="bg-primary text-primary-foreground py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Activity className="w-16 h-16 mx-auto mb-4" />
-          <h1 className="text-4xl md:text-5xl mb-4">Sensor Data Visualization</h1>
-          <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto">
-            Real-time environmental monitoring and historical data archives
-          </p>
+    <IntlProvider locale={locale} messages={messages[locale]}>
+      <div className="min-h-screen bg-background">
+        {/* Header */}
+        <div className="bg-primary text-primary-foreground py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <Activity className="w-16 h-16 mx-auto mb-4" />
+
+            <h1 className="text-4xl md:text-5xl mb-4"><FormattedMessage id="Sensor Data Visualization" /></h1>
+            <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto">
+              <FormattedMessage id="Real-time environmental monitoring and historical data archives" />
+            </p>
+          </div>
         </div>
-      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <Tabs defaultValue="live" className="space-y-8">
-          <TabsList className="grid w-full max-w-md mx-auto grid-cols-2">
-            <TabsTrigger value="live">Live Dashboard</TabsTrigger>
-            <TabsTrigger value="catalog">Data Catalog</TabsTrigger>
-          </TabsList>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <Tabs defaultValue="live" className="space-y-8">
+            <TabsList className="grid w-md max-w-md mx-auto grid-cols-1">
+              <TabsTrigger value="live"><FormattedMessage id="Live Dashboard" /></TabsTrigger>
+            </TabsList>
 
-          {/* Live Dashboard */}
-          <TabsContent value="live" className="space-y-8">
-            {/* Node Selector */}
-            <div>
-              <h2 className="text-3xl mb-6">Select Sensor Node</h2>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {nodes.map((node) => (
-                  <Card
-                    key={node.id}
-                    onClick={() => setSelectedNode(node.id)}
-                    className={`p-6 cursor-pointer transition-all border-2 ${
-                      selectedNode === node.id
+            {/* Live Dashboard */}
+            <TabsContent value="live" className="space-y-8">
+              {/* Node Selector */}
+              <div>
+                <h2 className="text-3xl mb-6"><FormattedMessage id="Select Sensor Node" /></h2>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {nodes.map((node) => (
+                    <Card
+                      key={node.id}
+                      onClick={() => setSelectedNode(node.id)}
+                      className={`p-6 cursor-pointer transition-all border-2 ${selectedNode === node.id
                         ? "border-primary bg-primary/5"
                         : "border-border hover:border-primary/50"
-                    }`}
-                  >
-                    <div className="flex items-start justify-between mb-3">
-                      <h3 className="text-foreground">{node.id.toUpperCase()}</h3>
-                      <Badge
-                        variant={node.status === "active" ? "default" : "secondary"}
-                        className="text-xs"
-                      >
-                        {node.status}
-                      </Badge>
-                    </div>
-                    <p className="text-sm text-muted-foreground">{node.name}</p>
-                  </Card>
-                ))}
+                        }`}
+                    >
+                      <div className="flex items-start justify-between mb-3">
+                        <h3 className="text-foreground">{node.id.toUpperCase()}</h3>
+                        <Badge
+                          variant={node.status === "active" ? "default" : "secondary"}
+                          className="text-xs"
+                        >
+                          {node.status}
+                        </Badge>
+                      </div>
+                      <p className="text-sm text-muted-foreground">{node.name}</p>
+                    </Card>
+                  ))}
+                </div>
               </div>
-            </div>
 
-            {/* Node Information */}
-            <div>
-              <h2 className="text-3xl mb-6">{currentNode.name}</h2>
-              <Card className="p-6 border-border">
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                  <div className="flex items-start gap-3">
-                    <MapPin className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                    <div>
-                      <p className="text-sm text-muted-foreground mb-1">Location</p>
-                      <p className="text-foreground">{currentNode.location}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Layers className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                    <div>
-                      <p className="text-sm text-muted-foreground mb-1">Sensor Depths</p>
-                      <p className="text-foreground">{currentNode.sensorDepths}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <User className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                    <div>
-                      <p className="text-sm text-muted-foreground mb-1">Principal Investigator</p>
-                      <p className="text-foreground">{currentNode.pi}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Activity className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                    <div>
-                      <p className="text-sm text-muted-foreground mb-1">Status</p>
-                      <div className="flex items-center gap-2">
-                        <div
-                          className={`w-2 h-2 rounded-full ${currentNode.status === "active" ? "bg-green-500" : "bg-yellow-500"}`}
-                        />
-                        <p className="text-foreground capitalize">{currentNode.status}</p>
+              {/* Node Information 
+              <div>
+                <h2 className="text-3xl mb-6">{currentNode.name}</h2>
+                <Card className="p-6 border-border">
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="flex items-start gap-3">
+                      <MapPin className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                      <div>
+                        <p className="text-sm text-muted-foreground mb-1"><FormattedMessage id="Location" /></p>
+                        <p className="text-foreground">{currentNode.location}</p>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </Card>
-            </div>
-
-            {/* Status Indicator */}
-            <div className="flex items-center justify-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-muted-foreground">Live data updating every 30 seconds</span>
-            </div>
-
-            {/* Current Readings */}
-            <div>
-              <h2 className="text-3xl mb-6">Current Readings - {currentNode.name}</h2>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <Card className="p-6 border-border">
-                  <div className="flex items-start justify-between mb-4">
-                    <Thermometer className="w-8 h-8 text-primary" />
-                    <Badge
-                      variant={
-                        currentData.currentReadings.temperature.trend === "up"
-                          ? "default"
-                          : "secondary"
-                      }
-                      className="text-xs"
-                    >
-                      {currentData.currentReadings.temperature.change}
-                    </Badge>
-                  </div>
-                  <h3 className="text-muted-foreground mb-2">Temperature</h3>
-                  <p className="text-2xl text-foreground">
-                    {currentData.currentReadings.temperature.value}
-                    {currentData.currentReadings.temperature.unit}
-                  </p>
-                </Card>
-
-                <Card className="p-6 border-border">
-                  <div className="flex items-start justify-between mb-4">
-                    <Gauge className="w-8 h-8 text-primary" />
-                    <Badge
-                      variant={
-                        currentData.currentReadings.pressure.trend === "up"
-                          ? "default"
-                          : "secondary"
-                      }
-                      className="text-xs"
-                    >
-                      {currentData.currentReadings.pressure.change}
-                    </Badge>
-                  </div>
-                  <h3 className="text-muted-foreground mb-2">Pressure</h3>
-                  <p className="text-2xl text-foreground">
-                    {currentData.currentReadings.pressure.value}{" "}
-                    {currentData.currentReadings.pressure.unit}
-                  </p>
-                </Card>
-
-                <Card className="p-6 border-border">
-                  <div className="flex items-start justify-between mb-4">
-                    <Droplets className="w-8 h-8 text-primary" />
-                    <Badge
-                      variant={
-                        currentData.currentReadings.humidity.trend === "up"
-                          ? "default"
-                          : "secondary"
-                      }
-                      className="text-xs"
-                    >
-                      {currentData.currentReadings.humidity.change}
-                    </Badge>
-                  </div>
-                  <h3 className="text-muted-foreground mb-2">Humidity</h3>
-                  <p className="text-2xl text-foreground">
-                    {currentData.currentReadings.humidity.value}
-                    {currentData.currentReadings.humidity.unit}
-                  </p>
-                </Card>
-
-                <Card className="p-6 border-border">
-                  <div className="flex items-start justify-between mb-4">
-                    <TreeDeciduous className="w-8 h-8 text-primary" />
-                    <Badge
-                      variant={
-                        currentData.currentReadings.dendrometer.trend === "up"
-                          ? "default"
-                          : "secondary"
-                      }
-                      className="text-xs"
-                    >
-                      {currentData.currentReadings.dendrometer.change}
-                    </Badge>
-                  </div>
-                  <h3 className="text-muted-foreground mb-2">Dendrometer</h3>
-                  <p className="text-2xl text-foreground">
-                    {currentData.currentReadings.dendrometer.value}{" "}
-                    {currentData.currentReadings.dendrometer.unit}
-                  </p>
-                </Card>
-
-                <Card className="p-6 border-border">
-                  <div className="flex items-start justify-between mb-4">
-                    <Zap className="w-8 h-8 text-primary" />
-                    <Badge
-                      variant={
-                        currentData.currentReadings.sapflow.trend === "up" ? "default" : "secondary"
-                      }
-                      className="text-xs"
-                    >
-                      {currentData.currentReadings.sapflow.change}
-                    </Badge>
-                  </div>
-                  <h3 className="text-muted-foreground mb-2">Sap Flow</h3>
-                  <p className="text-2xl text-foreground">
-                    {currentData.currentReadings.sapflow.value}{" "}
-                    {currentData.currentReadings.sapflow.unit}
-                  </p>
-                </Card>
-
-                <Card className="p-6 border-border">
-                  <div className="flex items-start justify-between mb-4">
-                    <Battery className="w-8 h-8 text-primary" />
-                    <Badge
-                      variant={
-                        currentData.currentReadings.battery.trend === "up" ? "default" : "secondary"
-                      }
-                      className="text-xs"
-                    >
-                      {currentData.currentReadings.battery.change}
-                    </Badge>
-                  </div>
-                  <h3 className="text-muted-foreground mb-2">Battery</h3>
-                  <p className="text-2xl text-foreground">
-                    {currentData.currentReadings.battery.value}
-                    {currentData.currentReadings.battery.unit}
-                  </p>
-                </Card>
-              </div>
-            </div>
-
-            {/* Temperature Chart */}
-            <div>
-              <h2 className="text-3xl mb-6">Temperature - Last 24 Hours</h2>
-              <Card className="p-6 border-border">
-                <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={currentData.temperatureHistory}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="time" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Line
-                      type="monotone"
-                      dataKey="value"
-                      stroke="#3d5a3c"
-                      strokeWidth={2}
-                      name="Temperature (°C)"
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </Card>
-            </div>
-
-            {/* Pressure Chart */}
-            <div>
-              <h2 className="text-3xl mb-6">Pressure - Last 24 Hours</h2>
-              <Card className="p-6 border-border">
-                <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={currentData.pressureHistory}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="time" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Line
-                      type="monotone"
-                      dataKey="value"
-                      stroke="#8b7355"
-                      strokeWidth={2}
-                      name="Pressure (hPa)"
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </Card>
-            </div>
-
-            {/* Humidity Chart */}
-            <div>
-              <h2 className="text-3xl mb-6">Humidity - Last 24 Hours</h2>
-              <Card className="p-6 border-border">
-                <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={currentData.humidityHistory}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="time" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Line
-                      type="monotone"
-                      dataKey="value"
-                      stroke="#6b8e6b"
-                      strokeWidth={2}
-                      name="Humidity (%)"
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </Card>
-            </div>
-
-            {/* Dendrometer Chart */}
-            <div>
-              <h2 className="text-3xl mb-6">Dendrometer - Last 24 Hours</h2>
-              <Card className="p-6 border-border">
-                <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={currentData.dendrometerHistory}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="time" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Line
-                      type="monotone"
-                      dataKey="value"
-                      stroke="#3d5a3c"
-                      strokeWidth={2}
-                      name="Dendrometer (mm)"
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </Card>
-            </div>
-
-            {/* Sap Flow Chart */}
-            <div>
-              <h2 className="text-3xl mb-6">Sap Flow - Last 24 Hours</h2>
-              <Card className="p-6 border-border">
-                <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={currentData.sapflowHistory}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="time" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Line
-                      type="monotone"
-                      dataKey="value"
-                      stroke="#8b7355"
-                      strokeWidth={2}
-                      name="Sap Flow (g/hr)"
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </Card>
-            </div>
-
-            {/* Battery Chart */}
-            <div>
-              <h2 className="text-3xl mb-6">Battery Level - Last 24 Hours</h2>
-              <Card className="p-6 border-border">
-                <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={currentData.batteryHistory}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="time" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Line
-                      type="monotone"
-                      dataKey="value"
-                      stroke="#6b8e6b"
-                      strokeWidth={2}
-                      name="Battery (%)"
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </Card>
-            </div>
-          </TabsContent>
-
-          {/* Data Catalog */}
-          <TabsContent value="catalog" className="space-y-8">
-            <div>
-              <div className="flex items-center gap-3 mb-8">
-                <Database className="w-8 h-8 text-primary" />
-                <h2 className="text-3xl">Historical Data Archive</h2>
-              </div>
-              <p className="text-muted-foreground mb-8">
-                Access our comprehensive archive of environmental sensor data. All datasets are
-                available for download in multiple formats for research and educational purposes.
-              </p>
-
-              <div className="space-y-4">
-                {datasets.map((dataset, index) => (
-                  <Card key={index} className="p-6 border-border hover:shadow-lg transition-shadow">
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex-1">
-                        <h3 className="text-foreground mb-3">{dataset.name}</h3>
-                        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
-                          <div>
-                            <p className="text-muted-foreground mb-1">Time Period</p>
-                            <p className="text-foreground">{dataset.period}</p>
-                          </div>
-                          <div>
-                            <p className="text-muted-foreground mb-1">Dataset Size</p>
-                            <p className="text-foreground">{dataset.size}</p>
-                          </div>
-                          <div>
-                            <p className="text-muted-foreground mb-1">Total Records</p>
-                            <p className="text-foreground">{dataset.records}</p>
-                          </div>
-                          <div>
-                            <p className="text-muted-foreground mb-1">File Formats</p>
-                            <p className="text-foreground">{dataset.format}</p>
-                          </div>
+                    <div className="flex items-start gap-3">
+                      <Layers className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                      <div>
+                        <p className="text-sm text-muted-foreground mb-1"><FormattedMessage id="Sensor Depths" /></p>
+                        <p className="text-foreground">{currentNode.sensorDepths}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <User className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                      <div>
+                        <p className="text-sm text-muted-foreground mb-1"><FormattedMessage id="Principal Investigator" /></p>
+                        <p className="text-foreground">{currentNode.pi}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Activity className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                      <div>
+                        <p className="text-sm text-muted-foreground mb-1">Status</p>
+                        <div className="flex items-center gap-2">
+                          <div
+                            className={`w-2 h-2 rounded-full ${currentNode.status === "active" ? "bg-green-500" : "bg-yellow-500"}`}
+                          />
+                          <p className="text-foreground capitalize">{currentNode.status}</p>
                         </div>
                       </div>
-                      <button className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors flex-shrink-0">
-                        <Download className="w-4 h-4" />
-                        Download
-                      </button>
                     </div>
-                  </Card>
-                ))}
+                  </div>
+                </Card>
               </div>
-            </div>
+              */}
 
-            {/* Data Access Information */}
-            <div className="bg-primary/5 rounded-lg p-8 border border-border">
-              <h3 className="text-2xl mb-4">Data Access & Usage</h3>
-              <div className="space-y-3 text-muted-foreground">
-                <p>
-                  Our data is freely available for research and educational purposes under a
-                  Creative Commons Attribution 4.0 International License.
-                </p>
-                <p>
-                  If you use this data in your research, please cite our dataset and publications.
-                  We also encourage you to contact us about your research - we'd love to hear how
-                  our data is being used!
-                </p>
-                <p>
-                  For questions about data access, formats, or metadata, please contact our data
-                  manager at
-                  <a href="mailto:data@lab.edu" className="underline">
-                    data@lab.edu
-                  </a>
-                </p>
+              {/* Status Indicator */}
+              <div className="flex items-center justify-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
+                <span className="text-muted-foreground"><FormattedMessage id="Live data updating every 30 seconds" /></span>
               </div>
-            </div>
-          </TabsContent>
-        </Tabs>
-      </div>
 
-      {/* Footer */}
-      <footer className="bg-primary text-primary-foreground mt-16 py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-sm">
-            © 2024 Prof. Joy Winbourne Environmental Research Lab. All rights reserved.
-          </p>
+              {/* Temperature Chart */}
+              <div>
+                <h2 className="text-3xl mb-6"><FormattedMessage id="Temperature - Last 24 Hours" /></h2>
+                <Card className="p-6 border-border">
+                  <ResponsiveContainer width="100%" height={300}>
+                    <LineChart data={currentData.temperatureHistory}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="time" />
+                      <YAxis />
+                      <Tooltip />
+                      <Legend />
+                      <Line
+                        type="monotone"
+                        dataKey="value"
+                        stroke="#3d5a3c"
+                        strokeWidth={2}
+                        name="Temperature (°C)"
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </Card>
+              </div>
+
+              {/* Pressure Chart */}
+              <div>
+                <h2 className="text-3xl mb-6"><FormattedMessage id="Pressure - Last 24 Hours" /></h2>
+                <Card className="p-6 border-border">
+                  <ResponsiveContainer width="100%" height={300}>
+                    <LineChart data={currentData.pressureHistory}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="time" />
+                      <YAxis />
+                      <Tooltip />
+                      <Legend />
+                      <Line
+                        type="monotone"
+                        dataKey="value"
+                        stroke="#8b7355"
+                        strokeWidth={2}
+                        name="Pressure (hPa)"
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </Card>
+              </div>
+
+              {/* Humidity Chart */}
+              <div>
+                <h2 className="text-3xl mb-6"><FormattedMessage id="Humidity - Last 24 Hours" /></h2>
+                <Card className="p-6 border-border">
+                  <ResponsiveContainer width="100%" height={300}>
+                    <LineChart data={currentData.humidityHistory}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="time" />
+                      <YAxis />
+                      <Tooltip />
+                      <Legend />
+                      <Line
+                        type="monotone"
+                        dataKey="value"
+                        stroke="#6b8e6b"
+                        strokeWidth={2}
+                        name="Humidity (%)"
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </Card>
+              </div>
+
+              {/* Dendrometer Chart */}
+              <div>
+                <h2 className="text-3xl mb-6"><FormattedMessage id="Dendrometer - Last 24 Hours" /></h2>
+                <Card className="p-6 border-border">
+                  <ResponsiveContainer width="100%" height={300}>
+                    <LineChart data={currentData.dendrometerHistory}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="time" />
+                      <YAxis />
+                      <Tooltip />
+                      <Legend />
+                      <Line
+                        type="monotone"
+                        dataKey="value"
+                        stroke="#3d5a3c"
+                        strokeWidth={2}
+                        name="Dendrometer (mm)"
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </Card>
+              </div>
+
+              {/* Sap Flow Chart */}
+              <div>
+                <h2 className="text-3xl mb-6"><FormattedMessage id="Sap Flow - Last 24 Hours" /></h2>
+                <Card className="p-6 border-border">
+                  <ResponsiveContainer width="100%" height={300}>
+                    <LineChart data={currentData.sapflowHistory}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="time" />
+                      <YAxis />
+                      <Tooltip />
+                      <Legend />
+                      <Line
+                        type="monotone"
+                        dataKey="value"
+                        stroke="#8b7355"
+                        strokeWidth={2}
+                        name="Sap Flow (g/hr)"
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </Card>
+              </div>
+
+              {/* Battery Chart */}
+              <div>
+                <h2 className="text-3xl mb-6"><FormattedMessage id="Battery Level - Last 24 Hours" /></h2>
+                <Card className="p-6 border-border">
+                  <ResponsiveContainer width="100%" height={300}>
+                    <LineChart data={currentData.batteryHistory}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="time" />
+                      <YAxis />
+                      <Tooltip />
+                      <Legend />
+                      <Line
+                        type="monotone"
+                        dataKey="value"
+                        stroke="#6b8e6b"
+                        strokeWidth={2}
+                        name="Battery (%)"
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </Card>
+              </div>
+            </TabsContent>
+
+            {/* Data Catalog */}
+            <TabsContent value="catalog" className="space-y-8">
+              <div>
+                <div className="flex items-center gap-3 mb-8">
+                  <Database className="w-8 h-8 text-primary" />
+                  <h2 className="text-3xl"><FormattedMessage id="Historical Data Archive" /></h2>
+                </div>
+                <p className="text-muted-foreground mb-8">
+                  Access our comprehensive archive of environmental sensor data. All datasets are
+                  available for download in multiple formats for research and educational purposes.
+                </p>
+
+                <div className="space-y-4">
+                  {datasets.map((dataset, index) => (
+                    <Card key={index} className="p-6 border-border hover:shadow-lg transition-shadow">
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="flex-1">
+                          <h3 className="text-foreground mb-3">{dataset.name}</h3>
+                          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+                            <div>
+                              <p className="text-muted-foreground mb-1"><FormattedMessage id="Time Period" /></p>
+                              <p className="text-foreground">{dataset.period}</p>
+                            </div>
+                            <div>
+                              <p className="text-muted-foreground mb-1"><FormattedMessage id="Dataset Size" /></p>
+                              <p className="text-foreground">{dataset.size}</p>
+                            </div>
+                            <div>
+                              <p className="text-muted-foreground mb-1"><FormattedMessage id="Total Records" /></p>
+                              <p className="text-foreground">{dataset.records}</p>
+                            </div>
+                            <div>
+                              <p className="text-muted-foreground mb-1"><FormattedMessage id="File Formats" /></p>
+                              <p className="text-foreground">{dataset.format}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <button className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors flex-shrink-0">
+                          <Download className="w-4 h-4" />
+                          Download
+                        </button>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+
+              {/* Data Access Information */}
+              <div className="bg-primary/5 rounded-lg p-8 border border-border">
+                <h3 className="text-2xl mb-4">Data Access & Usage</h3>
+                <div className="space-y-3 text-muted-foreground">
+                  <p>
+                    Our data is freely available for research and educational purposes under a
+                    Creative Commons Attribution 4.0 International License.
+                  </p>
+                  <p>
+                    If you use this data in your research, please cite our dataset and publications.
+                    We also encourage you to contact us about your research - we'd love to hear how
+                    our data is being used!
+                  </p>
+                  <p>
+                    For questions about data access, formats, or metadata, please contact our data
+                    manager at
+                    <a href="mailto:data@lab.edu" className="underline">
+                      data@lab.edu
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
-      </footer>
-    </div>
+
+        {/* Footer */}
+        <footer className="bg-primary text-primary-foreground mt-16 py-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p className="text-sm">
+              © 2024 Prof. Joy Winbourne Environmental Research Lab. All rights reserved.
+            </p>
+          </div>
+        </footer>
+      </div>
+    </IntlProvider>
   );
 }
