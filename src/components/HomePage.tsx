@@ -5,6 +5,7 @@ import { Card } from "./ui/card";
 
 // adjust the path below based on where HomePage file is located
 import sensorLocal from "../assets/images/eli-alexander-qhuAQ_m0_yU-unsplash.jpg";
+import sensorLocal1 from "../assets/images/jeremy-bishop-EwKXn5CapA4-unsplash.jpg";
 
 export function HomePage() {
   const features = [
@@ -148,7 +149,7 @@ export function HomePage() {
 
           <div className="h-[400px] rounded-lg shadow-lg overflow-hidden">
             <ImageWithFallback
-              src="src/assets/images/jeremy-bishop-EwKXn5CapA4-unsplash.jpg"
+              src={sensorLocal1}
               alt="Nitrogen cycling forest"
               className="w-full h-full object-cover"
             />
