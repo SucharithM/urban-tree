@@ -93,16 +93,7 @@ Supporting environmental research and education through accessible, real-time ur
 
 ---
 
-## Future Vision
-
-Our goal is to expand this platform to:
-- Monitor 100+ urban trees across multiple cities
-- Integrate real time weather data
-- Provide predictive analytics
-- Enable citizen science participation
-- Create a global urban tree monitoring network
-
-
 **Website:** https://urban-tree.vercel.app/
+
 
 
