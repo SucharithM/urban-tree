@@ -1,4 +1,4 @@
-# Urban Tree Environmental Monitoring Platform
+# Urban Tree Ecophysiology
 
 ---
 ##  About the Project
@@ -31,13 +31,13 @@ Supporting environmental research and education through accessible, real-time ur
 
 ---
 
-## 🌍 Live Demo
+## Live Demo
 
-**Visit:** [https://urban-tree.netlify.app](https://urban-tree.vercel.app/)
+**Visit:** https://urban-tree.vercel.app/
 
 
 ---
-## 🔬 Monitoring Stations
+##  Monitoring Stations
 
 ### Active Stations
 
@@ -104,4 +104,5 @@ Our goal is to expand this platform to:
 
 
 **Website:** https://urban-tree.vercel.app/
+
 
