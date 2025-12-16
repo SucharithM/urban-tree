@@ -62,7 +62,7 @@ export function SensorDataPage() {
   const nodes = [
     {
       id: "node1",
-      name: "Oak Ridge Station",
+      name: "Tree-1",
       location: "38.7456°N, 92.3289°W",
       sensorDepths: "10cm, 30cm, 50cm",
       pi: "Dr. Sarah Chen",
@@ -70,7 +70,7 @@ export function SensorDataPage() {
     },
     {
       id: "node2",
-      name: "Pine Valley Site",
+      name: "Tree-2",
       location: "38.7512°N, 92.3145°W",
       sensorDepths: "15cm, 35cm, 60cm",
       pi: "Dr. James Martinez",
@@ -78,7 +78,7 @@ export function SensorDataPage() {
     },
     {
       id: "node3",
-      name: "Maple Creek Point",
+      name: "Tree-3",
       location: "38.7389°N, 92.3401°W",
       sensorDepths: "10cm, 25cm, 45cm",
       pi: "Dr. Emily Thompson",
@@ -86,7 +86,7 @@ export function SensorDataPage() {
     },
     {
       id: "node4",
-      name: "Birch Forest Hub",
+      name: "Tree-4",
       location: "38.7623°N, 92.3198°W",
       sensorDepths: "12cm, 30cm, 55cm",
       pi: "Dr. Michael Park",
@@ -97,11 +97,11 @@ export function SensorDataPage() {
   const nodeData: Record<string, NodeData> = {
     node1: {
       currentReadings: {
-        temperature: { value: 21.4, unit: "°C", change: "+2.3", trend: "up" },
-        pressure: { value: 1013.2, unit: "hPa", change: "-1.5", trend: "down" },
-        humidity: { value: 65, unit: "%", change: "-3", trend: "down" },
-        dendrometer: { value: 145.8, unit: "mm", change: "+0.2", trend: "up" },
-        sapflow: { value: 12.4, unit: "g/hr", change: "+1.8", trend: "up" },
+        temperature: { value: 0, unit: "°C", change: "+2.3", trend: "up" },
+        pressure: { value: 0, unit: "hPa", change: "-1.5", trend: "down" },
+        humidity: { value: 0, unit: "%", change: "-3", trend: "down" },
+        dendrometer: { value: 65535, unit: "mm", change: "+0.2", trend: "up" },
+        sapflow: { value: 2.2, unit: "g/hr", change: "+1.8", trend: "up" },
         battery: { value: 87, unit: "%", change: "-2", trend: "down" },
       },
       temperatureHistory: [
@@ -155,10 +155,10 @@ export function SensorDataPage() {
     },
     node2: {
       currentReadings: {
-        temperature: { value: 19.8, unit: "°C", change: "+1.5", trend: "up" },
-        pressure: { value: 1012.8, unit: "hPa", change: "-0.8", trend: "down" },
-        humidity: { value: 71, unit: "%", change: "+2", trend: "up" },
-        dendrometer: { value: 152.3, unit: "mm", change: "+0.3", trend: "up" },
+        temperature: { value: 0, unit: "°C", change: "+1.5", trend: "up" },
+        pressure: { value: 0, unit: "hPa", change: "-0.8", trend: "down" },
+        humidity: { value: 0, unit: "%", change: "+2", trend: "up" },
+        dendrometer: { value: 65535, unit: "mm", change: "+0.3", trend: "up" },
         sapflow: { value: 10.8, unit: "g/hr", change: "+1.2", trend: "up" },
         battery: { value: 92, unit: "%", change: "-1", trend: "down" },
       },
@@ -213,11 +213,11 @@ export function SensorDataPage() {
     },
     node3: {
       currentReadings: {
-        temperature: { value: 20.6, unit: "°C", change: "+1.9", trend: "up" },
-        pressure: { value: 1014.1, unit: "hPa", change: "-1.2", trend: "down" },
-        humidity: { value: 68, unit: "%", change: "-1", trend: "down" },
-        dendrometer: { value: 138.9, unit: "mm", change: "+0.1", trend: "up" },
-        sapflow: { value: 11.7, unit: "g/hr", change: "+1.5", trend: "up" },
+        temperature: { value: 0, unit: "°C", change: "+1.9", trend: "up" },
+        pressure: { value: 0, unit: "hPa", change: "-1.2", trend: "down" },
+        humidity: { value: 0, unit: "%", change: "-1", trend: "down" },
+        dendrometer: { value: 65535, unit: "mm", change: "+0.1", trend: "up" },
+        sapflow: { value: 2.2, unit: "g/hr", change: "+1.5", trend: "up" },
         battery: { value: 84, unit: "%", change: "-3", trend: "down" },
       },
       temperatureHistory: [
