@@ -105,9 +105,3 @@ Our goal is to expand this platform to:
 
 **Website:** https://urban-tree.vercel.app/
 
-**Version:** 1.0.0  
-**Last Updated:** December 2024
-
----
-
-© 2024 University of Massachusetts Lowell Environmental Research Lab. All rights reserved.
